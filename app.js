@@ -5,18 +5,12 @@ const path = require("path");
 
 const app = express();
 
-app.use(express.static(path.join(__dirname, "client", "build")));
-
 app.use(express.json({ extended: true }));
 
-app.use("/auth", require("./routs/auth"));
-app.use("/todo", require("./routs/todo"));
+app.use("/api/auth", require("./routs/auth"));
+app.use("/api/todo", require("./routs/todo"));
 
-app.get("*", (req, res) => {
-  res.sendFile(path.join(__dirname, "client", "build", "index.html"))
-})
-
-const PORT = process.env.PORT || 5000;
+const PORT = 5001;
 
 async function start() {
   try {

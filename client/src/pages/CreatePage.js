@@ -25,7 +25,7 @@ const CreatePage = () => {
   const onCreate = async () => {
     try {
       await request(
-        "/todo/create",
+        "/api/todo/create",
         "POST",
         { ...todoData },
         {

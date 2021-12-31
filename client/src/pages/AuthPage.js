@@ -5,9 +5,9 @@ import useHttp from "../hooks/useHttp";
 import useMessage from "../hooks/useMessage";
 
 const AuthPage = () => {
-  const auth =useContext(AuthContext);
-  const message = useMessage()
-  const [ request, isLoading ] = useHttp();
+  const auth = useContext(AuthContext);
+  const message = useMessage();
+  const [request, isLoading] = useHttp();
   const [credentials, setCredentials] = useState({
     email: "",
     password: "",
@@ -22,20 +22,24 @@ const AuthPage = () => {
 
   const onSignup = async () => {
     try {
-      const {token, userId} = await request("/auth/signup", "POST", {...credentials});
+      const { token, userId } = await request("/api/auth/signup", "POST", {
+        ...credentials,
+      });
       auth.signup(token, userId);
       message("User created.");
     } catch (e) {
       message(e.message);
     }
-  }
+  };
 
   const onLogin = async () => {
     try {
-      const {token, userId} = await request("/auth/login", "POST", { ...credentials });
+      const { token, userId } = await request("/api/auth/login", "POST", {
+        ...credentials,
+      });
       auth.login(token, userId);
     } catch (e) {
-      message(e.message)
+      message(e.message);
     }
   };
 
@@ -56,7 +60,9 @@ const AuthPage = () => {
                 className="validate"
                 onChange={handleChange}
               />
-              <label htmlFor="email" className="active">Email</label>
+              <label htmlFor="email" className="active">
+                Email
+              </label>
             </div>
             <div className="input-field" style={{ marginBottom: "0px" }}>
               <input
@@ -66,7 +72,9 @@ const AuthPage = () => {
                 className="validate"
                 onChange={handleChange}
               />
-              <label htmlFor="password" className="active">Password</label>
+              <label htmlFor="password" className="active">
+                Password
+              </label>
             </div>
           </div>
           <div className="card-action">

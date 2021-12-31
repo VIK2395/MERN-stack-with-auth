@@ -12,7 +12,7 @@ const TodosPage = () => {
 
   const fetchTodos = useCallback(async () => {
     try {
-      const fetchedTodos = await request("/todo", "GET", null, {
+      const fetchedTodos = await request("/api/todo", "GET", null, {
         Authorization: `Bearer ${token}`,
       });
       setTodos(fetchedTodos);
@@ -21,9 +21,9 @@ const TodosPage = () => {
     }
   }, [token, request, message]);
 
-  const onDelete = async(id) => {
+  const onDelete = async (id) => {
     try {
-      await request(`/todo/${id}`, "DELETE", null, {
+      await request(`/api/todo/${id}`, "DELETE", null, {
         Authorization: `Bearer ${token}`,
       });
       setTodos(todos.filter((todo) => todo._id !== id));
@@ -37,7 +37,9 @@ const TodosPage = () => {
   }, [fetchTodos]);
 
   if (todos.length === 0) {
-    return <p style={{textAlign: "center", fontSize: "24px"}}>No todos yet</p>
+    return (
+      <p style={{ textAlign: "center", fontSize: "24px" }}>No todos yet</p>
+    );
   }
 
   return <TodosList todos={todos} onDelete={onDelete} />;
